@@ -1,0 +1,45 @@
+import { StyleSheet } from 'react-native'
+
+export const styles = StyleSheet.create({
+  container: {
+    backgroundColor: '#FFFFFF',
+    width: 615,
+    height: 190,
+    paddingHorizontal: 20,
+    paddingBottom: 12,
+    position: 'absolute',
+    bottom: 0,
+    left: '50%',
+    transform: [{ translateX: -307.5 }],
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderTopLeftRadius: 500,
+    borderTopRightRadius: 500,
+    overflow: 'hidden',
+  },
+  content: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: 20,
+  },
+  helperText: {
+    fontSize: 15,
+    fontWeight: '400',
+    color: '#000000',
+  },
+  button: {
+    backgroundColor: '#04242F',
+    borderRadius: 26,
+    fontWeight: 'bold',
+    fontSize: 24,
+    width: 220,
+    color: '#FFFFFF',
+    textTransform: 'uppercase',
+    height: 60,
+    textAlign: 'center',
+    display: 'flex',
+    justifyContent: 'center',
+    margin: 0,
+  },
+})
