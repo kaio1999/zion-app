@@ -7,7 +7,9 @@ import Carousel from './components/Carousel';
 import Category from './components/Category';
 import CardList from './components/CardList';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { ListPLacesInterface } from '../../../data/types';
+import { ListPLacesInterface } from '../../types/filterData';
+import { fetchPlaces } from '../../services/places';
+import { filterData } from '../../utils/filter';
 
 type RootStackParamList = {
     Camera: undefined;
@@ -33,49 +35,19 @@ const HomeScreen: React.FC<Props> = ({ navigation }) => {
     };
 
     useFocusEffect(() => {
-        const fetchData = async () => {
-            try {
-                const response = await fetch('https://rent-zion-default-rtdb.firebaseio.com/places/.json')
-                const dataObject = await response.json();
-                const dataArray = Object.keys(dataObject).map(key => ({
-                    id: key, // Use o ID do objeto como ID
-                    ...dataObject[key], // Inclua os demais dados do objeto
-                }));
-    
-                setData(dataArray);
-            }
-            catch(err) {
-                console.error(err)
-            }
-        }
-
-        fetchData()
+        (async () => {
+            const response = await fetchPlaces()
+            setData(response)
+        })()
     })
-    
 
-    const filteredData = data.filter(item => {
-        const lowerCaseSearchText = searchText.toLowerCase();
-        const isInSelectedCategories = selectedCategories.length === 0 || selectedCategories.includes(item.category);
-
-        if (item.pricePerNight.toString().includes(lowerCaseSearchText)) {
-            return isInSelectedCategories;
-        }
-        if (item.address.toLowerCase().includes(lowerCaseSearchText)) {
-            return isInSelectedCategories;
-        }
-        const haveMatch = item.have.some(feature =>
-            feature.toLowerCase().includes(lowerCaseSearchText)
-        );
-        if (haveMatch) {
-            return isInSelectedCategories;
-        }
-
-        return false;
-    });
+    const filteredData = filterData({data, searchText, selectedCategories})
 
     const handleOpenCamera = () => {
         navigation.navigate('Camera')
     }
+
+    const categories = [...new Set(data.map(item => item.category))];
 
     return (
         <SafeAreaView style={styles.container}>
@@ -85,12 +57,12 @@ const HomeScreen: React.FC<Props> = ({ navigation }) => {
             </View>
             <View style={styles.content}>
                 <Carousel horizontalDirection keyword='Categoria'>
-                    {data.map((item) => (
+                    {categories.map((item) => (
                         <Category
-                            key={item.id}
-                            category={item.category}
-                            onPress={() => handleCategorySelect(item.category)}
-                            isSelected={selectedCategories.includes(item.category)}
+                            key={item}
+                            category={item}
+                            onPress={() => handleCategorySelect(item)}
+                            isSelected={selectedCategories.includes(item)}
                         />
                     ))}
                 </Carousel>
@@ -105,7 +77,7 @@ const styles = StyleSheet.create({
         flex: 1,
         marginTop: 35,
         marginHorizontal: 8,
-        marginBottom: 45
+        marginBottom: 85
     },
     contentHeaderPage: {
         flexDirection: 'row',

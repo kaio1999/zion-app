@@ -1,19 +1,15 @@
 import React, { useState } from 'react'
-import { Button, InputAccessoryView, SafeAreaView, ScrollView, TextInput, View } from 'react-native'
+import { Button, InputAccessoryView, ScrollView, TextInput, View, Platform } from 'react-native'
 import { Fontisto } from '@expo/vector-icons';
 import { SearchComponentEnum } from './Search.types';
 import { styles } from './Search.style';
-import { useFonts } from 'expo-font';
 
-const Search = (props: {setText: (value: string) => void, text: string}) => {
+const Search = (props: { setText: (value: string) => void, text: string }) => {
 
     const { setText, text } = props
 
     const inputAccessoryViewID = 'uniqueID';
-
-    useFonts({
-        'Poppins-Regular': require('../../../../../assets/fonts/Poppins-Regular.ttf')
-      });
+    const isIos = Platform.OS === 'ios'
 
     return (
         <View style={styles.container}>
@@ -30,9 +26,9 @@ const Search = (props: {setText: (value: string) => void, text: string}) => {
                     />
                 </View>
             </ScrollView>
-            <InputAccessoryView nativeID={inputAccessoryViewID}>
+            {isIos && <InputAccessoryView nativeID={inputAccessoryViewID}>
                 <Button onPress={() => setText('')} title={SearchComponentEnum.title_button_ios} />
-            </InputAccessoryView>
+            </InputAccessoryView>}
         </View>
     )
 }

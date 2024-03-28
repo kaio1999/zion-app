@@ -2,19 +2,10 @@ import React from 'react'
 import { Image, Text, View } from 'react-native'
 import { CardPropsItem } from './Card.type';
 import { styles } from './Card.style';
-import { useFonts } from 'expo-font';
 import { FontAwesome6 } from '@expo/vector-icons';
 
 const Card = (props: { item: CardPropsItem }) => {
-
     const { item } = props
-
-    useFonts({
-        'Poppins-SemiBold': require('../../../../../../assets/fonts/Poppins-SemiBold.ttf'),
-        'Poppins-Medium': require('../../../../../../assets/fonts/Poppins-Medium.ttf'),
-        'Poppins-Regular': require('../../../../../../assets/fonts/Poppins-Regular.ttf'),
-    });
-
     const formatedCurrency = (value: number) => {
         return value.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })
     }

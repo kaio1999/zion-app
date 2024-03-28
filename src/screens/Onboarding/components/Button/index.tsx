@@ -2,16 +2,10 @@ import React from 'react'
 import { Text, TouchableOpacity, View } from 'react-native'
 import { styles } from './Button.styles'
 import ButtonComponentEnum from './Button.enum'
-import { useFonts } from 'expo-font'
 
 const ButtonComponent = (props: { onPress: () => void }) => {
-
+  
   const { onPress } = props
-
-  useFonts({
-    'Poppins-Bold': require('../../../../../assets/fonts/Poppins-Bold.ttf'),
-    'Poppins-Regular': require('../../../../../assets/fonts/Poppins-Regular.ttf')
-  });
 
   return (
     <View style={styles.container}>

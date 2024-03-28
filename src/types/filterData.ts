@@ -8,3 +8,9 @@ export interface ListPLacesInterface {
   pricePerNight: number
   id: string
 }
+
+export interface FilterData {
+  data: ListPLacesInterface[]
+  searchText: string
+  selectedCategories: string[]
+}

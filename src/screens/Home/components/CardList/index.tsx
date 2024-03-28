@@ -1,7 +1,7 @@
 import React from 'react'
 import Card from './Card'
 import { FlatList } from 'react-native'
-import { ListPLacesInterface } from '../../../../../data/types'
+import { ListPLacesInterface } from '../../../../types/filterData'
 
 const CardList = (props: { data: ListPLacesInterface[] }) => {
 

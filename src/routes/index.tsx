@@ -1,9 +1,8 @@
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer } from '@react-navigation/native';
-import { OnboardingScreen, HomeScreen, Camera } from '../presentation/screens';
+import { OnboardingScreen, HomeScreen, Camera } from '../screens';
 import { FontAwesome5 } from '@expo/vector-icons';
-import { Image } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 const BottomTab = createBottomTabNavigator();

@@ -7,6 +7,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { MaterialIcons } from '@expo/vector-icons';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { useFocusEffect } from '@react-navigation/native';
+import { postNewPlace } from '../../services/places';
 
 type RootStackParamList = {
   Home: undefined;
@@ -17,15 +18,16 @@ type Props = {
 };
 
 const Camera = ({ navigation }: Props) => {
+  
   const [facing, setFacing] = useState<any>('back');
   const [qrCodeScanned, setQrCodeScanned] = useState<boolean>(false);
-  useCameraPermissions();
   const cameraRef = useRef<any>(null);
 
   function toggleCameraFacing() {
     setFacing((current: any) => (current === 'back' ? 'front' : 'back'));
   }
 
+  useCameraPermissions();
   useFocusEffect(
     React.useCallback(() => {
       setQrCodeScanned(false);
@@ -44,26 +46,13 @@ const Camera = ({ navigation }: Props) => {
       id: place.id,
     };
 
-    try {
-      const response = await fetch('https://rent-zion-default-rtdb.firebaseio.com/places.json', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(body),
-      });
-
-      if (!response.ok) {
-        throw new Error('Falha ao adicionar lugar');
-      }
-    } catch (error) {
-      console.error('Erro ao adicionar lugar:', error);
-    }
+    postNewPlace(body)
   };
 
   const handleQRCodeScanned = async (event: any) => {
     if (!qrCodeScanned) {
       const house = event.data;
+
       if (house) {
         setQrCodeScanned(true)
         await handleAddPlace(JSON.parse(house));
