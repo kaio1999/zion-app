@@ -3,13 +3,13 @@ import Card from './Card'
 import { FlatList } from 'react-native'
 import { ListPLacesInterface } from '../../../../types/filterData'
 
-const CardList = (props: { data: ListPLacesInterface[] }) => {
+const CardList = (props: { data: ListPLacesInterface[], onPressCard: (value: string) => void }) => {
 
-    const { data } = props
+    const { data, onPressCard } = props
 
     return <FlatList
         data={data}
-        renderItem={({ item }) => <Card item={item} />}
+        renderItem={({ item }) => <Card item={item} onPress={onPressCard}/>}
         keyExtractor={item => item.id.toString()}
         showsVerticalScrollIndicator={false}
         style={{

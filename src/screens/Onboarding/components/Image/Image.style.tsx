@@ -23,8 +23,8 @@ export const styles = StyleSheet.create({
     flexDirection: 'column',
   },
   shadowText: {
-    textShadowColor: 'rgba(255, 255, 255, 0.2)', // Cor da sombra esbranquiçada
-    textShadowOffset: { width: 5, height: 4 }, // Deslocamento da sombra
+    textShadowColor: 'rgba(255, 255, 255, 0.2)',
+    textShadowOffset: { width: 5, height: 4 },
     textShadowRadius: 3,
   },
   alignText: {

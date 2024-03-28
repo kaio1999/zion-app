@@ -1,7 +1,7 @@
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer } from '@react-navigation/native';
-import { OnboardingScreen, HomeScreen, Camera } from '../screens';
+import { OnboardingScreen, HomeScreen, Camera, Map } from '../screens';
 import { FontAwesome5 } from '@expo/vector-icons';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
@@ -68,6 +68,15 @@ const TabRoutes = () => {
             headerShown: false,
             tabBarShowLabel: false,
             tabBarStyle: { display: 'none' },
+            tabBarButton: () => null
+          }}
+        />
+        <BottomTab.Screen
+          name="Map"
+          component={Map}
+          options={{
+            headerShown: false,
+            tabBarShowLabel: false,
             tabBarButton: () => null
           }}
         />

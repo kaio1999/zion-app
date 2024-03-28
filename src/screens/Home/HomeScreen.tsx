@@ -13,10 +13,11 @@ import { filterData } from '../../utils/filter';
 
 type RootStackParamList = {
     Camera: undefined;
+    Map: { address: string }
 };
 
 type Props = {
-    navigation: StackNavigationProp<RootStackParamList, 'Camera'>;
+    navigation: StackNavigationProp<RootStackParamList, 'Camera' | 'Map'>;
 };
 
 const HomeScreen: React.FC<Props> = ({ navigation }) => {
@@ -41,10 +42,14 @@ const HomeScreen: React.FC<Props> = ({ navigation }) => {
         })()
     })
 
-    const filteredData = filterData({data, searchText, selectedCategories})
+    const filteredData = filterData({ data, searchText, selectedCategories })
 
     const handleOpenCamera = () => {
         navigation.navigate('Camera')
+    }
+
+    const handleOpenMap = (address: string) => {
+        navigation.navigate('Map', { address: address })
     }
 
     const categories = [...new Set(data.map(item => item.category))];
@@ -66,7 +71,7 @@ const HomeScreen: React.FC<Props> = ({ navigation }) => {
                         />
                     ))}
                 </Carousel>
-                <CardList data={filteredData} />
+                <CardList data={filteredData} onPressCard={handleOpenMap}/>
             </View>
         </SafeAreaView>
     )
